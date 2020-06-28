@@ -131,7 +131,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Cors # TODO: Read more.
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -303,7 +303,7 @@ REST_FRAMEWORK = {
 # Throttling
 if IS_PROD:
     REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
-        'anon': '400/hour',  # TODO: Update to 4/hour
+        'anon': '4/hour',
     }
 else:
     REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {

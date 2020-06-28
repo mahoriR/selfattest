@@ -15,7 +15,6 @@ from media_photo.api.serializers import UserPhotoSerializer
 from media_photo.models import UserPhotoMeta, TempPhoto
 
 
-
 logger = logging.getLogger(__name__)
 
 MAX_WIDTH = 720
@@ -98,10 +97,11 @@ def svc_get_attested_files_url(request_data: dict) -> dict:
     7. 
 
     '''
-    if 'document' not in request_data:
-        raise KeyError('parameter missing - document')
-    if 'signature' not in request_data:
-        raise KeyError('parameter missing - signature')
+    required_keys: List[str] = ['document', 'signature']
+    for required_key in required_keys:
+        if required_key not in request_data:
+            raise KeyError(f'parameter missing - {required_key}')
+
     document = _get_file_from_request_data(request_data['document'])
     signature = _get_file_from_request_data(request_data['signature'])
 
