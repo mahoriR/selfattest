@@ -1,0 +1,32 @@
+server {
+
+    
+    listen 80;
+
+    server_name api.selfattest.online www.api.selfattest.online;
+    charset utf-8;
+
+    # When no SSL, Uncomment below and comment above line
+    location / {
+        client_max_body_size 4M;
+        proxy_pass http://web_monolith:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto 'https';
+    }
+}
+
+server {
+
+    listen 80;
+
+    #digitalocean health checks
+    server_name cloud.digitalocean.com www.cloud.digitalocean.com;
+    charset utf-8;
+
+    location / {
+        return 204;
+    }
+}
+

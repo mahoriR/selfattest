@@ -1,0 +1,5 @@
+.vscode/
+**/.vscode/
+
+build_meta/.envstaging
+build_meta/.envprod

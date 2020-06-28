@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  web_monolith:
+    restart: always
+    build:
+      context: ./../selfattest_web
+      dockerfile: ./../selfattest_web/Dockerfile-prod
+    ports:
+      - "8000"
+    depends_on:
+      - redis
+    networks:
+      - backend
+    env_file: ./../build_meta/.envprod
+    command: gunicorn selfattest.wsgi:application --workers=9 --worker-class=sync --timeout=30 --bind :8000
+
+  nginxserver:
+    restart: always
+    build:
+      context: ./../nginx/
+      dockerfile: ./../nginx/Dockerfile-prod
+    container_name: nginxserver
+    ports:
+      - "80:80"
+    networks:
+      - backend
+    depends_on:
+      - web_monolith
+
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  redisdata:

@@ -1,0 +1,23 @@
+Django==3.0.5
+djangorestframework==3.11.0
+python-decouple==3.3
+psycopg2-binary==2.7.5
+dj-database-url==0.5.0
+django-cors-headers==3.2.1
+
+
+gunicorn==20.0.4 #App server
+
+redis==3.5.2 #cache/ratelimit
+
+sentry-sdk==0.14.4 #Error tracker
+
+django-storages==1.9.1 #DO space storage 
+boto3==1.14.1 #S3 connect
+
+Pillow==7.1.2 #Images
+
+django-redis==4.12.1 #Caching. Required for Rate limit at least.
+
+
+

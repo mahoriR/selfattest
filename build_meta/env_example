@@ -1,0 +1,22 @@
+
+SECRET_KEY = 'SUP3RS3CR34'
+
+IN_CONTAINER=False
+IS_PROD=False
+
+DEBUG=True
+
+DATABASE_URL_LOCAL_DEV=postgres://selfattest_user:selfattest_pwd@localhost:5432/selfattest
+DATABASE_URL=postgres://<user>:<pwd>@localhost:<port>/<dbname>
+
+TEST_DB_NAME=TEST_DB_NAME
+
+REDIS_URL = redis://localhost:7777
+
+
+AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY
+AWS_S3_ENDPOINT_URL=AWS_S3_ENDPOINT_URL
+CLOUD_STORAGE=False
+
+SENTRY_DSN=SENTRY_DSN

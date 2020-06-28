@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  web_monolith:
+    restart: always
+    build: ./../selfattest_web
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+    env_file: ./../selfattest_web/.env
+    command: gunicorn selfattest.wsgi:application -w 4 -b :8000
+
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend
+
+  fast_worker:
+    build: ./../selfattest_web
+    command: celery worker -A selfattest -E -l info --concurrency=1 -n fast_worker@selfattest.online  -Q default,sms_report
+    env_file: ./../selfattest_web/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  slow_worker:
+    build: ./../selfattest_web
+    command: celery worker -A selfattest -E -l info --concurrency=4 -n slow_worker@selfattest.online  -Q send_sms,email_queue,fcm_notification
+    env_file: ./../selfattest_web/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  celery-beat:
+    build: ./../selfattest_web
+    command: celery -A selfattest beat -l info
+    env_file: ./../selfattest_web/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+networks:
+  backend:
+
+volumes:
+  redisdata:
+  dbdata:
