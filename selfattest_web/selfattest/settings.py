@@ -303,7 +303,7 @@ REST_FRAMEWORK = {
 # Throttling
 if IS_PROD:
     REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
-        'anon': '4/hour',
+        'anon': '400/hour',  # TODO: Update to 4/hour
     }
 else:
     REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
