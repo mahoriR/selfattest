@@ -1,3 +1,8 @@
+# Setting up a new production server
+
+Follow <https://github.com/mahoriR/ubuntu-server-setup.git>
+
+
 # Setup Debug Environment
 
 ## With Docker
@@ -64,26 +69,26 @@ sudo su - postgres
 
 psql -p <port>
 
-CREATE DATABASE esm_platform;
-CREATE USER esm_platform_user WITH PASSWORD 'esm_platform_user_pwd';
-ALTER ROLE esm_platform_user SET client_encoding TO 'utf8';
-ALTER ROLE esm_platform_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE esm_platform_user SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE esm_platform TO esm_platform_user;
+CREATE DATABASE selfattest;
+CREATE USER selfattest_user WITH PASSWORD 'selfattest_user_pwd';
+ALTER ROLE selfattest_user SET client_encoding TO 'utf8';
+ALTER ROLE selfattest_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE selfattest_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE selfattest TO selfattest_user;
 
-ALTER ROLE  esm_platform_user CREATEDB ; #Required only for running Unit tests locally.
+ALTER ROLE  selfattest_user CREATEDB ; #Required only for running Unit tests locally.
 \q
 
 ```
 
-The DB connection string is  `postgres://esm_platform_user:esm_platform_user_pwd@localhost:5433/esm_platform`
+The DB connection string is  `postgres://selfattest_user:selfattest_user_pwd@localhost:5433/selfattest`
 
 Udpdate your .env file's `DATABASE_URL`
 
 Connect to DB from command line using psql -
 
 ```bash
-psql -d postgres://esm_platform_user:esm_platform_user_pwd@localhost:5433/esm_platform
+psql -d postgres://selfattest_user:selfattest_user_pwd@localhost:5433/selfattest
 ```
 
 ### Running Tests
@@ -97,22 +102,3 @@ psql -d postgres://esm_platform_user:esm_platform_user_pwd@localhost:5433/esm_pl
 ```bash
 python manage.py runserver
 ```
-
-This shall run your local server along with nice browsable APIs
-
-# How to setup a new environment
-
-## Set Domain on digital ocean
-
-## Create load balancer
-
-HTTPS 443 - > HTTP 80
-HTTP 80 -> HTTP 80
-
-Create ceritificate and use subdomains. Subdomain must be already defined in domain config.
-
-## Create new firewall. Allow incoming in for droplet from loadbalancer only. SSH from everyone
-
-## Create new droplet
-
-Follow https://github.com/mahoriR/ubuntu-server-setup.git
