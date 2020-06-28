@@ -25,7 +25,7 @@ def _get_file_from_request_data(image_data) -> Any:
     # We need to get a file object for Pillow. We might have a path or we might
     # have to read the data into memory.
     if hasattr(image_data, 'temporary_file_path'):
-        file = image_file.temporary_file_path()
+        file = image_data.temporary_file_path()
     else:
         if hasattr(image_data, 'read'):
             file = BytesIO(image_data.read())
