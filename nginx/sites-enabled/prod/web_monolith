@@ -1,10 +1,20 @@
 server {
     listen 80;
 
+    server_name selfattest.online www.selfattest.online;
+    charset utf-8;
+
+    root /www/data;
+    index index.html;
+}
+
+
+server {
+    listen 80;
+
     server_name api.selfattest.online www.api.selfattest.online;
     charset utf-8;
 
-    # When no SSL, Uncomment below and comment above line
     location / {
         client_max_body_size 5M;
         proxy_pass http://web_monolith:8000;
