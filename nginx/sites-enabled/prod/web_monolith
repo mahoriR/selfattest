@@ -1,6 +1,4 @@
 server {
-
-    
     listen 80;
 
     server_name api.selfattest.online www.api.selfattest.online;
@@ -8,7 +6,7 @@ server {
 
     # When no SSL, Uncomment below and comment above line
     location / {
-        client_max_body_size 4M;
+        client_max_body_size 5M;
         proxy_pass http://web_monolith:8000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
