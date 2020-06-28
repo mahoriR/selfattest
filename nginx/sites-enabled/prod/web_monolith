@@ -37,4 +37,3 @@ server {
         return 204;
     }
 }
-

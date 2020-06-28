@@ -10,7 +10,7 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
        && ln -sf /dev/stderr /var/log/nginx/error.log
 
-COPY sites-enabled/prod/ /etc/nginx/sites-enabled
+COPY sites-enabled/prod/web_monolith /etc/nginx/sites-enabled
 
 RUN mkdir -p /www/data
 COPY sites-enabled/prod/index.html /www/data
