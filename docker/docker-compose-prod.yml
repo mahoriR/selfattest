@@ -13,7 +13,7 @@ services:
     networks:
       - backend
     env_file: ./../build_meta/.envprod
-    command: gunicorn selfattest.wsgi:application --workers=9 --worker-class=sync --timeout=30 --bind :8000
+    command: gunicorn selfattest.wsgi:application --workers=7 --worker-class=sync --timeout=30 --bind :8000
 
   nginxserver:
     restart: always
