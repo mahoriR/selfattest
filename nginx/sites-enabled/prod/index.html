@@ -1,6 +1,822 @@
+<!DOCTYPE html>
 <html>
-    <head>Self Attest Online</head>
-    <body>
-        Coming soon :)
-    </body>
-</html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Self attest your documents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #feb60a;
+            --red: #ff0062;
+            --blue: #00dbf9;
+            --violet: #da00f7;
+        }
+        .mainContainer {
+            margin: 0;
+            position: fixed;
+            z-index: 2;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1940;
+            background-image: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,153,212,0) calc(15% + 100px), rgba(0,99,138,0) calc(85% + 100px), rgba(0,0,0,0.15) 100%);
+        }
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader-container > div {
+            width: 3vw;
+            height: 3vw;
+            border-radius: 100%;
+            margin: 2vw;
+            background-image: linear-gradient(145deg, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 100%);
+            animation: bounce 1.5s 0.5s linear infinite;
+        }
+        .yellow {
+            background-color: var(--yellow);
+        }
+
+        .red {
+            background-color: var(--red);
+            animation-delay: 0.1s;
+        }
+
+        .blue {
+            background-color: var(--blue);
+            animation-delay: 0.2s;
+        }
+
+        .violet {
+            background-color: var(--violet);
+            animation-delay: 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 50%, 100% {
+                transform: scale(1);
+                filter: blur(0px);
+            }
+            25% {
+                transform: scale(0.6);
+                filter: blur(3px);
+            }
+            75% {
+                filter: blur(3px);
+                transform: scale(1.4);
+            }
+        }
+        html, body{
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+        }
+        button{
+            cursor:pointer;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container{
+                background-color: #5F27CD;
+                width: 100%;
+                min-height: 200px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                padding-bottom: 30px;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-bottom: 40px;
+            }
+            .header{
+                padding: 15px 40px;
+                /*background-color: #16AEF2;*/
+                background-color: white;
+                /*color: white;*/
+                color: #5f27cd;
+                font-size: 11px;
+                width: fit-content;
+                font-weight: 700;
+                margin-left: auto;
+                margin-right: auto;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                margin-bottom: 40px;
+            }
+            h3{
+                color: white;
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            .flex{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+            .info-container{
+                /*background-color: #16AEF2;*/
+                background-color: #7F52D7;
+                width: 30%;
+                border-radius: 6px;
+                text-align: center;
+                padding-top: 10px;
+                margin-bottom: 20px;
+            }
+            .document{
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+            .whitebg{
+                width: 60%;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10px;
+            }
+            .signature{
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+            .info-text{
+                padding: 10px;
+                color: white;
+                font-size: 10px;
+                text-align: left;
+            }
+            .height-fix{
+                margin-top: 28px;
+            }
+            .upload-container{
+                width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .upload-block{
+                width: 100%;
+                height: 50px;
+                border-radius: 8px;
+                /*border: 1px dashed #16AEF2;*/
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+            }
+            .upload-block-2{
+                width: 120px;
+                height: 120px;
+                border-radius: 8px;
+                /*border: 1px dashed #16AEF2;*/
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+            }
+            .upload-block-2 input{
+                height: 100%;
+                width: 100%;
+            }
+            .upload-block-2 img{
+                width: 60%;
+                left: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+            }
+
+            .button-overlay{
+                /*background-color: #cff0ff;*/
+                background-color: #e3d5ff;
+                position: absolute;
+                left:0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+                pointer-events: none;
+                border-radius: 8px;
+            }
+            .submit{
+                width: 100%;
+                height: 45px;
+                color: white;
+                background-color: #FC427B;
+                margin-top: 50px;
+                border-radius: 20px;
+                border: none;
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+            .download{
+                width: 100%;
+                height: 45px;
+                color: white;
+                background-color: #FC427B;
+                margin-top: 50px;
+                border-radius: 20px;
+                border: none;
+                font-size: 14px;
+                margin-bottom: 30px;
+                display: block;
+                text-align: center;
+                line-height: 45px;
+                text-decoration: none;
+            }
+            .upload-text{
+                font-size: 11px;
+                text-align: center;
+                margin-top: 5px;
+
+            }
+            .upload-btn-container{
+                display: flex;
+                justify-content: space-evenly;
+            }
+            .fullWidth{
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .result-block{
+                width: 150px;
+                height: 150px;
+                border-radius: 8px;
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+            }
+            .attested-img{
+                width: 100%;
+                left: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+            }
+            .hide{
+                display: none;
+            }
+            .show{
+                display: block !important;
+            }
+            .faq-section {
+                background: #fdfdfd;
+                padding: 10vh 0 0;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        @media only screen and (min-width: 600px) {
+            .container{
+                background-color: #5F27CD;
+                width: 100%;
+                min-height: 200px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                padding-bottom: 30px;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-bottom: 40px;
+            }
+            .header{
+                padding: 15px 40px;
+                /*background-color: #16AEF2;*/
+                background-color: white;
+                /*color: white;*/
+                color: #5f27cd;
+                font-size: 11px;
+                width: fit-content;
+                font-weight: 700;
+                margin-left: auto;
+                margin-right: auto;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                margin-bottom: 40px;
+            }
+            h3{
+                color: white;
+                text-align: center;
+                margin-bottom: 45px;
+                font-size: 26px;
+            }
+            .flex{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+            .info-container{
+                /*background-color: #16AEF2;*/
+                background-color: #7F52D7;
+                width: 200px;
+                border-radius: 6px;
+                text-align: center;
+                padding-top: 10px;
+                margin-bottom: 20px;
+            }
+            .document{
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+            .whitebg{
+                width: 60%;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10px;
+            }
+            .signature{
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+            .info-text{
+                padding: 10px;
+                color: white;
+                font-size: 13px;
+
+            }
+            .height-fix{
+                margin-top: 50px;
+            }
+            .upload-container{
+                width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .upload-block{
+                width: 100%;
+                height: 50px;
+                border-radius: 8px;
+                /*border: 1px dashed #16AEF2;*/
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+            }
+            .upload-block-2{
+                width: 150px;
+                height: 150px;
+                border-radius: 8px;
+                /*border: 1px dashed #16AEF2;*/
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+            }
+            .upload-block-2 input{
+                height: 100%;
+                width: 100%;
+            }
+            .upload-block-2 img{
+                width: 60%;
+                left: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+            }
+
+            .button-overlay{
+                /*background-color: #cff0ff;*/
+                background-color: #e3d5ff;
+                position: absolute;
+                left:0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+                pointer-events: none;
+                border-radius: 8px;
+            }
+            .submit{
+                width: 400px;
+                height: 45px;
+                color: white;
+                background-color: #FC427B;
+                border-radius: 20px;
+                border: none;
+                font-size: 14px;
+                margin: 50px auto 30px;
+                display: block;
+            }
+            .download{
+                width: 400px;
+                height: 45px;
+                color: white;
+                background-color: #FC427B;
+                border-radius: 20px;
+                border: none;
+                font-size: 14px;
+                display: block;
+                text-align: center;
+                line-height: 45px;
+                text-decoration: none;
+                margin: 50px auto 30px;
+
+            }
+            .upload-text{
+                font-size: 13px;
+                text-align: center;
+                margin-top: 5px;
+
+            }
+            .upload-btn-container{
+                display: flex;
+                justify-content: center;
+            }
+            #document-outer{
+                margin-right: 100px;
+            }
+            .fullWidth{
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .result-block{
+                width: 150px;
+                height: 150px;
+                border-radius: 8px;
+                border: 1px dashed #b590ff;
+                margin-top: 30px;
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                overflow: hidden;
+            }
+            .attested-img{
+                width: 100%;
+                left: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+            }
+            .hide{
+                display: none;
+            }
+            .show{
+                display: block !important;
+            }
+            .faq-section {
+                background: #fdfdfd;
+                padding: 10vh 0 0;
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /*faq*/
+          .text-center{
+              text-align: center;
+          }
+
+        .faq-title h2 {
+            position: relative;
+            margin-bottom: 45px;
+            display: inline-block;
+            font-weight: 600;
+            line-height: 1;
+        }
+        .faq-title h2::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 60px;
+            height: 2px;
+            background: #E91E63;
+            bottom: -25px;
+            margin-left: -30px;
+        }
+        .faq-title p {
+            padding: 0 190px;
+            margin-bottom: 10px;
+        }
+
+        .faq {
+            background: #FFFFFF;
+            box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+        }
+
+        .faq .card {
+            border: none;
+            background: none;
+            border-bottom: 1px dashed #CEE1F8;
+        }
+
+        .faq .card .card-header {
+            padding: 0px;
+            border: none;
+            background: none;
+            -webkit-transition: all 0.3s ease 0s;
+            -moz-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
+            transition: all 0.3s ease 0s;
+        }
+        .faq .card .card-header .faq-title {
+            width: 100%;
+            text-align: left;
+            padding: 0px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-weight: 400;
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: #3B566E;
+            text-decoration: none !important;
+            -webkit-transition: all 0.3s ease 0s;
+            -moz-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .faq .card .card-header .faq-title .badge {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            float: left;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+            border-radius: 100px;
+            text-align: center;
+            background: #E91E63;
+            color: #fff;
+            font-size: 12px;
+            margin-right: 20px;
+        }
+
+        .faq .card .card-body {
+            padding: 30px 30px 16px 35px;
+            font-weight: 400;
+            font-size: 16px;
+            color: #6F8BA4;
+            line-height: 28px;
+            letter-spacing: 1px;
+            border-top: 1px solid #F3F8FF;
+            overflow-x: auto;
+        }
+
+        .faq .card .card-body p {
+            margin-bottom: 14px;
+        }
+
+        @media (max-width: 991px) {
+            .faq {
+                margin-bottom: 30px;
+            }
+            .faq .card .card-header .faq-title {
+                line-height: 26px;
+                margin-top: 10px;
+            }
+        }
+
+    </style>
+
+    <script>
+        "use strict";
+        var url = "https://api.selfattest.online/api/v1/media/photos/attested";
+        var documentFile, signatureFile;
+
+        window.onload = function () {
+            document.getElementById("document").onchange = function (e) {
+                var docImg = document.getElementById('document-preview');
+                docImg.src = URL.createObjectURL(e.target.files[0]);
+                documentFile = e.target.files[0];
+                docImg.classList.add("fullWidth");
+
+                docImg.onload = function () {
+                    URL.revokeObjectURL(docImg.src); // free memory
+                };
+            };
+
+            document.getElementById("signature").onchange = function (e) {
+                var docImg = document.getElementById('signature-preview');
+                docImg.src = URL.createObjectURL(e.target.files[0]);
+                signatureFile = e.target.files[0];
+                docImg.classList.add("fullWidth");
+
+                docImg.onload = function () {
+                    URL.revokeObjectURL(docImg.src); // free memory
+                };
+            };
+
+            document.getElementById("submit").onclick = async function (e) {
+                var loader = document.getElementById('loader');
+                loader.classList.remove("hide");
+                var formData = new FormData();
+                formData.append('document', documentFile);
+                formData.append('signature', signatureFile);
+                var options = {
+                    method: 'POST',
+                    body: formData
+                };
+
+                try {
+                    var response = await fetch(url, options);
+                    var result = await response.json();
+
+                    if (response.ok) {
+                        loader.classList.add("hide");
+                        var resultImgEl = document.getElementById('attested-doc');
+                        var resultDivEl = document.getElementById('attested-block');
+                        var downloadEl = document.getElementById('download');
+                        var docImg = document.getElementById('signature-outer');
+                        var signImg = document.getElementById('document-outer');
+                        var submitBtn = document.getElementById('submit');
+                        resultImgEl.src = result.photo_url;
+                        downloadEl.download = result.photo_url;
+                        downloadEl.href = result.photo_url;
+                        resultDivEl.classList.remove("hide");
+                        downloadEl.classList.remove("hide");
+                        docImg.classList.add("hide");
+                        signImg.classList.add("hide");
+                        submitBtn.classList.add("hide");
+                    } else {
+                        loader.classList.add("hide");
+                        window.alert(response.statusText);
+                    }
+                } catch (e) {
+                    loader.classList.add("hide");
+                    window.alert(e);
+                }
+            };
+        };
+
+    </script>
+
+
+</head>
+
+<body>
+<div class="mainContainer hide" id="loader">
+    <div class="loader-container">
+        <div class="yellow"></div>
+        <div class="red"></div>
+        <div class="blue"></div>
+        <div class="violet"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="header"> SELF ATTEST YOUR DOCUMENT</div>
+    <h3> How it works </h3>
+    <div class="flex">
+        <div class="info-container">
+            <img class="document" src="document.png"/>
+            <p class="info-text"><strong> 1.</strong> Upload document to attest </p>
+        </div>
+        <div class="info-container">
+            <div class="whitebg">
+                <img class="signature" src="signature.png"/>
+            </div>
+            <p class="info-text height-fix"><strong> 2.</strong> Upload signature on white background </p>
+        </div>
+        <div class="info-container">
+            <img class="document" src="attestedDoc.png"/>
+            <p class="info-text"><strong> 3.</strong> Download attested document </p>
+        </div>
+    </div>
+</div>
+<div class="upload-container">
+    <div class="upload-btn-container">
+        <div id="document-outer">
+            <div class="upload-block-2" >
+                <div class="button-overlay">
+                    <img src="upload-p.png" id="document-preview"/>
+                </div>
+                <input type="file" id="document"/>
+            </div>
+            <p class="upload-text"> Upload Document </p>
+        </div>
+        <div id="signature-outer">
+            <div class="upload-block-2" >
+                <div class="button-overlay">
+                    <img src="upload-p.png" id="signature-preview"/>
+                </div>
+                <input type="file" id="signature"/>
+            </div>
+            <p class="upload-text"> Upload Signature </p>
+        </div>
+    </div>
+    <div class="result-block hide" id="attested-block">
+        <img src="#" id="attested-doc" class="attested-img"/>
+    </div>
+    <a target="_blank" class="download hide" id="download"> Download your file </a>
+    <button class="submit" id="submit"> Self Attest </button>
+</div>
+<section class="faq-section">
+    <div class="">
+        <div class="row">
+            <!-- ***** FAQ Start ***** -->
+            <div class="col-md-6 offset-md-3">
+                <div class="faq-title text-center pb-3">
+                    <h2>FAQ</h2>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="faq" id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="faqHeading-1">
+                            <div class="mb-0">
+                                <h5 class="faq-title" data-toggle="collapse" data-target="#faqCollapse-1" data-aria-expanded="true" data-aria-controls="faqCollapse-1">
+                                    <span class="badge">1</span>What is this?
+                                </h5>
+                            </div>
+                        </div>
+                        <div id="faqCollapse-1" class="collapse" aria-labelledby="faqHeading-1" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>I had to submit self-attested documents to GOI 3 times last week. On a normal day, this is a bearably painful exercise, but kinda unsafe during these COVID times.
+                                    So, I searched online and to my surprise, there were either shady websites or sign-up walls.
+                                    Hence <a href="https://selfattest.online/">selfattest.online</a> was born.
+                                    This is a weekend project which could not have been possible without the amazing frontend work from <a href="https://www.facebook.com/sourabh.garg.355/" target="_blank">@Sourabh</a> and backend was done by yours truly <a href="https://twitter.com/mahoriR" target="_blank">@mahoriR</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="faqHeading-2">
+                            <div class="mb-0">
+                                <h5 class="faq-title" data-toggle="collapse" data-target="#faqCollapse-2" data-aria-expanded="false" data-aria-controls="faqCollapse-2">
+                                    <span class="badge">2</span> Is there a limit on the number of files I can attest?
+                                </h5>
+                            </div>
+                        </div>
+                        <div id="faqCollapse-2" class="collapse" aria-labelledby="faqHeading-2" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>Yes. We allow only 4 files per hour.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="faqHeading-3">
+                            <div class="mb-0">
+                                <h5 class="faq-title" data-toggle="collapse" data-target="#faqCollapse-3" data-aria-expanded="false" data-aria-controls="faqCollapse-3">
+                                    <span class="badge">3</span>Is this safe?
+                                </h5>
+                            </div>
+                        </div>
+                        <div id="faqCollapse-3" class="collapse" aria-labelledby="faqHeading-3" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>Yes. We delete all files older than a few hours.
+                                    The project source is available <a href="https://github.com/mahoriR/selfattest" target="_blank">here</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="faqHeading-4">
+                            <div class="mb-0">
+                                <h5 class="faq-title" data-toggle="collapse" data-target="#faqCollapse-4" data-aria-expanded="false" data-aria-controls="faqCollapse-4">
+                                    <span class="badge">4</span> Can I just use the API?
+                                </h5>
+                            </div>
+                        </div>
+                        <div id="faqCollapse-4" class="collapse" aria-labelledby="faqHeading-4" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>curl --location --request POST 'https://api.selfattest.online/api/v1/media/photos/attested' <br>
+                                    --form 'document=@/home/mahorir/code/selfattest-temp/document.jpg' <br>
+                                    --form 'signature=@/home/mahorir/code/selfattest-temp/signature.jpg'
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="faqHeading-5">
+                            <div class="mb-0">
+                                <h5 class="faq-title" data-toggle="collapse" data-target="#faqCollapse-5" data-aria-expanded="false" data-aria-controls="faqCollapse-5">
+                                    <span class="badge">5</span> . I have a feature request, How can I get in touch?
+                                </h5>
+                            </div>
+                        </div>
+                        <div id="faqCollapse-5" class="collapse" aria-labelledby="faqHeading-5" data-parent="#accordion">
+                            <div class="card-body">
+                                <p> DMs open <a href="https://www.facebook.com/sourabh.garg.355/" target="_blank">@mahoriR</a> / <a href="https://twitter.com/mahoriR" target="_blank">@sourabh</a><br>
+                                    Can code? Please feel free to create a <a href="https://github.com/mahoriR/selfattest" target="_blank">PR here. </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+</body>
