@@ -12,5 +12,5 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 COPY sites-enabled/prod/web_monolith /etc/nginx/sites-enabled
 
-RUN mkdir -p /www/data
-COPY sites-enabled/prod/selfattest.com /www/data
+RUN mkdir -p /www/data/selfattest.com
+COPY sites-enabled/prod/selfattest.com /www/data/selfattest.com
