@@ -4,7 +4,7 @@ server {
     server_name selfattest.online www.selfattest.online;
     charset utf-8;
 
-    root /www/data;
+    root /www/data/selfattest.com;
     index index.html;
 }
 
