@@ -104,8 +104,15 @@ def svc_get_attested_files_url(request_data: dict) -> dict:
         if not request_data[required_key]:
             raise KeyError(f'Invalid {required_key}')
 
-    document = _get_file_from_request_data(request_data['document'])
-    signature = _get_file_from_request_data(request_data['signature'])
+    try:
+        document = _get_file_from_request_data(request_data['document'])
+        signature = _get_file_from_request_data(request_data['signature'])
+    except TypeError:
+        # for some reason frontend is sending string as value
+        # when people have not selected any image/file
+        # TypeError: string indices must be integers raised at
+        # file = BytesIO(image_data['content'])
+        raise KeyError(f'Invalid parameter value for document or signature')
 
     # scale down to max 720*720 (Keeps aspect)
     document.thumbnail((MAX_WIDTH, MAX_WIDTH))
