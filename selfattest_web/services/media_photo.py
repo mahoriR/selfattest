@@ -101,6 +101,8 @@ def svc_get_attested_files_url(request_data: dict) -> dict:
     for required_key in required_keys:
         if required_key not in request_data:
             raise KeyError(f'parameter missing - {required_key}')
+        if not request_data[required_key]:
+            raise KeyError(f'Invalid {required_key}')
 
     document = _get_file_from_request_data(request_data['document'])
     signature = _get_file_from_request_data(request_data['signature'])
