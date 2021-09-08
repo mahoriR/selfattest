@@ -15,7 +15,7 @@ sentry-sdk==0.14.4 #Error tracker
 django-storages==1.9.1 #DO space storage 
 boto3==1.14.1 #S3 connect
 
-Pillow==7.1.2 #Images
+Pillow==8.3.2 #Images
 
 django-redis==4.12.1 #Caching. Required for Rate limit at least.
 
